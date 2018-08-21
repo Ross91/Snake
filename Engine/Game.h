@@ -70,7 +70,7 @@ private:
 	Goal goal;
 	Block block;
 	int GameDimension = (20 * 20);
-	int blockCount = 1;
+	int blockCount = 2;
 
 
 	/********************************/

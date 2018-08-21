@@ -1,9 +1,13 @@
 #include "Block.h"
 
-void Block::Respawn( Board & brd, Snake& snake, Goal& goal )
+
+void Block::piece::Respawn(Board & brd, Snake & snake, Goal & goal)
 {
+	
 	std::uniform_int_distribution<int> xpos(0, 19);
 	std::uniform_int_distribution<int> ypos(0, 19);
+
+
 
 	Location newLoc;
 	do
@@ -14,26 +18,40 @@ void Block::Respawn( Board & brd, Snake& snake, Goal& goal )
 	} while (snake.SelfCollide(newLoc) && goal.Collide(newLoc));
 
 	loc = newLoc;
-
 }
 
-void Block::Draw(Board & brd, int num)
+void Block::piece::Draw(Board & brd)
 {
-	for (int i = num; i <= 0; --i)
-	{
-		brd.DrawCell(loc, c);
-	}
-	
+	assert(loc.x < 0);
+	assert(loc.x >= 500);
+	assert(loc.y < 0);
+	assert(loc.y >= 500);
+
+	brd.DrawCell(loc, c);
 }
 
-bool Block::Collide(Location& in_loc)
+
+Location Block::piece::GetLocation()
 {
-	if (loc == in_loc)
+	return loc;
+}
+
+void Block::Draw(Board& brd)
+{
+	for (int i = blocksNum; i > 0; --i)
 	{
-		return true;
+		piece[i].Draw(brd);
 	}
-	else
+}
+
+bool Block::Collide(Location & in_loc)
+{
+	for (int i = blocksNum; i > 0; --i)
 	{
-		return false;
+		if (piece[i].GetLocation() == in_loc)
+		{
+			return true;
+		}
 	}
+	return false;
 }

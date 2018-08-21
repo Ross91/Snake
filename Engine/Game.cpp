@@ -96,7 +96,6 @@ void Game::UpdateModel()
 			if (IsEaten)
 			{
 				goal.Respawn(rd, brd, snake, GetGameDimension());
-				block.Respawn(brd, snake, goal);
 				--snakeMovePeriod;
 				++blockCount;
 			}
@@ -115,7 +114,7 @@ void Game::ComposeFrame()
 	snake.Draw(brd);
 	goal.Draw(brd);
 
-	block.Draw(brd, blockCount);
+	//block.Draw(brd);
 
 	
 	frame.Draw(brd, GetGameDimension());
